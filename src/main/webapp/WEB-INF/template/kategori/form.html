@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/template">
+<head>
+<title>Edit Peserta</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<h1>Form Kategori</h1>
+		<hr />
+		<form action="#" th:action="@{/kategori/form}"	th:object="${kategori}" method="post">
+			<table>
+				<tr>
+					<td>Nama Kategori</td>
+					<td><input type="text" th:field="*{namaKategori}" placeholder="Nama Kategori.."></td>
+					<td><span th:if="${#fields.hasErrors('namaKategori')}"	th:errors="*{namaKategori}" class="error">Error</span></td>
+				</tr>
+				<tr>
+					<td><input type="hidden" th:field="*{id}" /></td>
+					<td><input type="submit" value="Simpan"></td>
+					<td></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+</body>
+</html>

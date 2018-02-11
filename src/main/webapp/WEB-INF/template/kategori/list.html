@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/template">
+<head>
+<meta charset="UTF-8">
+<title>List Kategori</title>
+</head>
+<body>
+<div layout:fragment="content">
+	<h1>Daftar Kategori</h1>
+	<hr />
+	
+	<a th:href="@{/kategori/form}">Tambah</a>
+	
+	<div style="overflow-x:auto;">
+			<table>
+				<tr>
+					<th>No</th>
+					<th>Nama Kategori</th>
+					<th colspan="2"></th>
+				</tr>
+				<tr th:each="k, index : ${daftarKategori}">
+					<td th:text="${index.count}" />
+					<td th:text="${k.namaKategori}" />
+					<td><a th:href="@{/kategori/form(id=${k.id})}">edit</a></td>
+	                <td><a th:href="@{/kategori/hapus(id=${k.id})}" onclick="return confirm('Anda yakin mau hapus data ini?');">hapus</a></td>
+				</tr>
+			</table>
+		</div>
+</div>
+</body>
+</html>
