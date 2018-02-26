@@ -31,7 +31,6 @@ public class KategoriController {
 	@GetMapping("/form")
 	public String formKategori(@RequestParam(value = "id", required = false) Integer id, 
 			Model m) {
-		m.addAttribute("daftarKategori", ks.list());
 		m.addAttribute("kategori", new Kategori());
 		
 		if (id != null) {
@@ -46,7 +45,6 @@ public class KategoriController {
 	@PostMapping("/form")
 	public String prosesForm(Model m, @Valid @ModelAttribute Kategori k,
 			BindingResult result) {
-		m.addAttribute("daftarKategori", ks.list());
 		
 		if (result.hasErrors()) {
 			return "kategori/form";

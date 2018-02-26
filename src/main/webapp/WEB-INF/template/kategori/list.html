@@ -9,7 +9,7 @@
 </head>
 <body>
 <div layout:fragment="content">
-	<h1>Daftar Kategori</h1>
+	<h1>Daftar Kategori/Rubrik</h1>
 	<hr />
 	
 	<a th:href="@{/kategori/form}">Tambah</a>
@@ -18,7 +18,7 @@
 			<table>
 				<tr>
 					<th>No</th>
-					<th>Nama Kategori</th>
+					<th>Nama Kategori/Rubrik</th>
 					<th colspan="2"></th>
 				</tr>
 				<tr th:each="k, index : ${daftarKategori}">

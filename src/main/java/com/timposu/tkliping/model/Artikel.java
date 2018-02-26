@@ -33,7 +33,7 @@ public class Artikel {
 	private String judul;
 	
 	@Column(nullable = true)
-	private String namaPengarang;
+	private String namaPenulis;
 	
 	@NotNull
 	@NotEmpty
@@ -58,6 +58,50 @@ public class Artikel {
 	@ManyToOne
 	@JoinColumn(name = "id_kategori")
 	private Kategori kategori;
+	
+	@Column(nullable = true)
+	private String gambar1;
+	
+	@Column(nullable = true)
+	private String gambar2;
+	
+	@Column(nullable = true)
+	private String gambar3;
+	
+	@Column(nullable = true)
+	private String gambar4;
+
+	public String getGambar1() {
+		return gambar1;
+	}
+
+	public void setGambar1(String gambar1) {
+		this.gambar1 = gambar1;
+	}
+
+	public String getGambar2() {
+		return gambar2;
+	}
+
+	public void setGambar2(String gambar2) {
+		this.gambar2 = gambar2;
+	}
+
+	public String getGambar3() {
+		return gambar3;
+	}
+
+	public void setGambar3(String gambar3) {
+		this.gambar3 = gambar3;
+	}
+
+	public String getGambar4() {
+		return gambar4;
+	}
+
+	public void setGambar4(String gambar4) {
+		this.gambar4 = gambar4;
+	}
 
 	public Kategori getKategori() {
 		return kategori;
@@ -83,12 +127,12 @@ public class Artikel {
 		this.judul = judul;
 	}
 
-	public String getNamaPengarang() {
-		return namaPengarang;
+	public String getNamaPenulis() {
+		return namaPenulis;
 	}
 
-	public void setNamaPengarang(String namaPengarang) {
-		this.namaPengarang = namaPengarang;
+	public void setNamaPenulis(String namaPenulis) {
+		this.namaPenulis = namaPenulis;
 	}
 
 	public String getNamaMedia() {

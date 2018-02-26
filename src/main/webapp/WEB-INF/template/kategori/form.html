@@ -10,12 +10,12 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h1>Form Kategori</h1>
+		<h1>Form Kategori/Rubrik</h1>
 		<hr />
 		<form action="#" th:action="@{/kategori/form}"	th:object="${kategori}" method="post">
 			<table>
 				<tr>
-					<td>Nama Kategori</td>
+					<td>Nama Kategori/Rubrik</td>
 					<td><input type="text" th:field="*{namaKategori}" placeholder="Nama Kategori.."></td>
 					<td><span th:if="${#fields.hasErrors('namaKategori')}"	th:errors="*{namaKategori}" class="error">Error</span></td>
 				</tr>
