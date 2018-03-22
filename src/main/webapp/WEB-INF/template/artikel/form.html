@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/template">
+<head>
+<title>Edit Peserta</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<h1>Form Artikel</h1>
+		<hr />
+		<form action="#" th:action="@{/artikel/form}"	th:object="${artikel}" method="post">
+			<table>
+				<tr>
+					<td>Nama Media</td>
+					<td><input type="text" th:field="*{namaMedia}"></td>
+					<td><span th:if="${#fields.hasErrors('namaMedia')}"	th:errors="*{namaMedia}" class="error">Error</span></td>
+				</tr>
+				<tr>
+					<td>Judul</td>
+					<td><input type="text" th:field="*{judul}"></td>
+					<td><span th:if="${#fields.hasErrors('judul')}"	th:errors="*{judul}" class="error">Error</span></td>
+				</tr>
+				<tr>
+					<td>Halaman</td>
+					<td><input type="text" th:field="*{halaman}"></td>
+					<td><span th:if="${#fields.hasErrors('halaman')}"	th:errors="*{halaman}" class="error">Error</span></td>
+				</tr>
+				<tr>
+					<td>Penulis</td>
+					<td><input type="text" th:field="*{namaPenulis}"></td>
+					<td><span th:if="${#fields.hasErrors('namaPenulis')}"	th:errors="*{namaPenulis}" class="error">Error</span></td>
+				</tr>
+				<tr>
+					<td>Edisi</td>
+					<td><input type="text" th:field="*{edisi}"></td>
+					<td><span th:if="${#fields.hasErrors('edisi')}"	th:errors="*{edisi}" class="error">Error</span></td>
+				</tr>
+				<tr>
+					<td><input type="hidden" th:field="*{id}" /></td>
+					<td><input type="submit" value="Simpan"></td>
+					<td></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+</body>
+</html>

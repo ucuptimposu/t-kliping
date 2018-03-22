@@ -16,8 +16,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "kategori")
-public class Kategori {
+@Table(name = "rubrik")
+public class Rubrik {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +27,12 @@ public class Kategori {
 	@NotEmpty
 	@Size(min = 3)
 	@Column(nullable = false, unique = true)
-	private String namaKategori;
+	private String namaRubrik;
 	
 	@OneToMany(
 			cascade = CascadeType.ALL,
 			orphanRemoval = true,
-			mappedBy = "kategori"
+			mappedBy = "rubrik"
 			)
 	private List<Artikel> listArtikel = new ArrayList<>();
 	
@@ -52,12 +52,12 @@ public class Kategori {
 		this.id = id;
 	}
 
-	public String getNamaKategori() {
-		return namaKategori;
+	public String getNamaRubrik() {
+		return namaRubrik;
 	}
 
-	public void setNamaKategori(String namaKategori) {
-		this.namaKategori = namaKategori;
+	public void setNamaRubrik(String namaRubrik) {
+		this.namaRubrik = namaRubrik;
 	}
 	
 }

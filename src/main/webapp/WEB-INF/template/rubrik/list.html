@@ -5,27 +5,27 @@
 	layout:decorator="layout/template">
 <head>
 <meta charset="UTF-8">
-<title>List Kategori</title>
+<title>Daftar Rubrik</title>
 </head>
 <body>
 <div layout:fragment="content">
-	<h1>Daftar Kategori/Rubrik</h1>
+	<h1>Daftar Rubrik</h1>
 	<hr />
 	
-	<a th:href="@{/kategori/form}">Tambah</a>
+	<a th:href="@{/rubrik/form}">Tambah</a>
 	
 	<div style="overflow-x:auto;">
 			<table>
 				<tr>
 					<th>No</th>
-					<th>Nama Kategori/Rubrik</th>
+					<th>Nama Rubrik</th>
 					<th colspan="2"></th>
 				</tr>
-				<tr th:each="k, index : ${daftarKategori}">
+				<tr th:each="r, index : ${daftarRubrik}">
 					<td th:text="${index.count}" />
-					<td th:text="${k.namaKategori}" />
-					<td><a th:href="@{/kategori/form(id=${k.id})}">edit</a></td>
-	                <td><a th:href="@{/kategori/hapus(id=${k.id})}" onclick="return confirm('Anda yakin mau hapus data ini?');">hapus</a></td>
+					<td th:text="${r.namaRubrik}" />
+					<td><a th:href="@{/rubrik/form(id=${r.id})}">edit</a></td>
+	                <td><a th:href="@{/rubrik/hapus(id=${r.id})}" onclick="return confirm('Anda yakin mau hapus data ini?');">hapus</a></td>
 				</tr>
 			</table>
 		</div>

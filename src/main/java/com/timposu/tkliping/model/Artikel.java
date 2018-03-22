@@ -56,8 +56,8 @@ public class Artikel {
 	private String tags;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_kategori")
-	private Kategori kategori;
+	@JoinColumn(name = "id_rubrik")
+	private Rubrik rubrik;
 	
 	@Column(nullable = true)
 	private String gambar1;
@@ -70,6 +70,17 @@ public class Artikel {
 	
 	@Column(nullable = true)
 	private String gambar4;
+	
+	@Column(nullable = true)
+	private String ket;
+
+	public String getKet() {
+		return ket;
+	}
+
+	public void setKet(String ket) {
+		this.ket = ket;
+	}
 
 	public String getGambar1() {
 		return gambar1;
@@ -103,12 +114,12 @@ public class Artikel {
 		this.gambar4 = gambar4;
 	}
 
-	public Kategori getKategori() {
-		return kategori;
+	public Rubrik getRubrik() {
+		return rubrik;
 	}
 
-	public void setKategori(Kategori kategori) {
-		this.kategori = kategori;
+	public void setRubrik(Rubrik rubrik) {
+		this.rubrik = rubrik;
 	}
 
 	public String getId() {

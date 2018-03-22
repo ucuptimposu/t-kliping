@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout/template">
+<head>
+<meta charset="UTF-8">
+<title>Daftar Artikel</title>
+</head>
+<body>
+<div layout:fragment="content">
+	<h1>Daftar Artikel</h1>
+	<hr />
+	
+	<a th:href="@{/artikel/form}">Tambah</a>
+	
+	<div style="overflow-x:auto;">
+			<table>
+				<tr>
+					<th>No</th>
+					<th>Nama Media</th>
+					<th>Judul</th>
+					<th>Halaman</th>
+					<th>Penulis</th>
+					<th>Rubrik</th>
+					<th>Tags</th>
+					<th colspan="2"></th>
+				</tr>
+				<tr th:each="a, index : ${daftarArtikel}">
+					<td th:text="${index.count}" />
+					<td th:text="${a.namaMedia}" />
+					<td th:text="${a.judul}" />
+					<td th:text="${a.halaman}" />
+					<td th:text="${a.namaPenulis}" />
+					<td th:text="${a.rubrik.namaRubrik}" />
+					<td th:text="${a.tags}" />
+					<td><a th:href="@{/rubrik/form(id=${r.id})}">edit</a></td>
+	                <td><a th:href="@{/rubrik/hapus(id=${r.id})}" onclick="return confirm('Anda yakin mau hapus data ini?');">hapus</a></td>
+				</tr>
+			</table>
+		</div>
+</div>
+</body>
+</html>
