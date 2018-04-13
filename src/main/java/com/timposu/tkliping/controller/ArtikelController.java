@@ -77,7 +77,8 @@ public class ArtikelController {
 	@PostMapping("/form")
 	public String prosesForm(Model m, @Valid @ModelAttribute Artikel a,
 			BindingResult result, HttpSession session, 
-			@RequestParam("foto") MultipartFile hasilUpload) {
+			@RequestParam("file1") MultipartFile hasilUpload1, 
+			@RequestParam("file2") MultipartFile hasilUpload2) {
 		
 		if (result.hasErrors()) { 
 			m.addAttribute("daftarRubrik", rs.list());
@@ -86,13 +87,16 @@ public class ArtikelController {
 		
 		String lokasiUpload = tujuanUpload(session).getAbsolutePath();
 		
-		LOGGER.debug("Nama File : [{}]", hasilUpload.getOriginalFilename());
-		LOGGER.debug("Ukuran File : [{}]", hasilUpload.getSize());
+		LOGGER.debug("Nama File : [{}]", hasilUpload1.getOriginalFilename());
+		LOGGER.debug("Ukuran File : [{}]", hasilUpload1.getSize());
 		
 		String tanggal = new SimpleDateFormat("yyyy-MM-dd").format(a.getTanggal());
 		
-		a.setFile(folderTujuan + File.separator + 
-				tanggal + "-" +hasilUpload.getOriginalFilename());
+		a.setFile1(folderTujuan + File.separator + 
+				tanggal + "-" +hasilUpload1.getOriginalFilename());
+		a.setFile2(folderTujuan + File.separator + 
+				tanggal + "-" +hasilUpload2.getOriginalFilename());
+		
 				
 		if (a.getId() == null || a.getId().isEmpty()) {
 			as.save(a);
@@ -100,11 +104,14 @@ public class ArtikelController {
 			as.update(a);
 		}
 		
-		File tujuan = new File(lokasiUpload + File.separator +
-				tanggal + "-" + hasilUpload.getOriginalFilename());
+		File tujuan1 = new File(lokasiUpload + File.separator +
+				tanggal + "-" + hasilUpload1.getOriginalFilename());
+		File tujuan2 = new File(lokasiUpload + File.separator +
+				tanggal + "-" + hasilUpload2.getOriginalFilename());
 	
 		try {
-			hasilUpload.transferTo(tujuan);
+			hasilUpload1.transferTo(tujuan1);
+			hasilUpload2.transferTo(tujuan2);
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

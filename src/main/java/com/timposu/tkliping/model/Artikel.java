@@ -1,6 +1,7 @@
 package com.timposu.tkliping.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "artikel")
@@ -60,7 +62,10 @@ public class Artikel {
 	private Rubrik rubrik;
 	
 	@Column(nullable = true)
-	private String file;
+	private String file1;
+	
+	@Column(nullable = true)
+	private String file2;
 	
 	@Column(nullable = true)
 	private String ket;
@@ -73,12 +78,19 @@ public class Artikel {
 		this.ket = ket;
 	}
 
-	public String getFile() {
-		return file;
+	public String getFile1() {
+		return file1;
 	}
 
-	public void setFile(String file) {
-		this.file = file;
+	public void setFile1(String file1) {
+		this.file1 = file1;
+	}
+	public String getFile2() {
+		return file2;
+	}
+
+	public void setFile2(String file2) {
+		this.file2 = file2;
 	}
 
 	public Rubrik getRubrik() {
