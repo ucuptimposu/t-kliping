@@ -3,7 +3,9 @@ package com.timposu.tkliping.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -39,7 +41,8 @@ public class ArtikelController {
 	@Autowired
 	private RubrikService rs;
 	
-	private String folderTujuan = "/uploads";
+	private final String FOLDER_TUJUAN = "/uploads";
+	
 	private static final Logger LOGGER = LoggerFactory.
 			getLogger(ArtikelController.class);
 	
@@ -77,8 +80,7 @@ public class ArtikelController {
 	@PostMapping("/form")
 	public String prosesForm(Model m, @Valid @ModelAttribute Artikel a,
 			BindingResult result, HttpSession session, 
-			@RequestParam("file1") MultipartFile hasilUpload1, 
-			@RequestParam("file2") MultipartFile hasilUpload2) {
+			@RequestParam("files") MultipartFile files) {
 		
 		if (result.hasErrors()) { 
 			m.addAttribute("daftarRubrik", rs.list());
@@ -87,45 +89,60 @@ public class ArtikelController {
 		
 		String lokasiUpload = tujuanUpload(session).getAbsolutePath();
 		
-		LOGGER.debug("Nama File : [{}]", hasilUpload1.getOriginalFilename());
-		LOGGER.debug("Ukuran File : [{}]", hasilUpload1.getSize());
+		LOGGER.debug("Nama File : [{}]", files.getOriginalFilename());
+		LOGGER.debug("Ukuran File : [{}]", files.getSize());
 		
 		String tanggal = new SimpleDateFormat("yyyy-MM-dd").format(a.getTanggal());
 		
-		a.setFile1(folderTujuan + File.separator + 
-				tanggal + "-" +hasilUpload1.getOriginalFilename());
-		a.setFile2(folderTujuan + File.separator + 
-				tanggal + "-" +hasilUpload2.getOriginalFilename());
+//		a.setFile1(FOLDER_TUJUAN + File.separator + 
+//				tanggal + "-" +hasilUpload.getOriginalFilename());
+//		a.setFile2(folderTujuan + File.separator + 
+//				tanggal + "-" +hasilUpload2.getOriginalFilename());
+//		
 		
+		List<MultipartFile> listFiles = a.getFiles();
+		List<String> filesNames = new ArrayList<String>();
+		
+		if (listFiles != null && listFiles.size() > 0) {
+			for (MultipartFile multipartFile : listFiles) {
+				String fileName = files.getOriginalFilename();
+				filesNames.add(fileName);
 				
-		if (a.getId() == null || a.getId().isEmpty()) {
-			as.save(a);
-		} else {
-			as.update(a);
+				File tujuan = new File(lokasiUpload + File.separator +
+						tanggal + "-" + files.getOriginalFilename());
+				try {
+					files.transferTo(tujuan);
+//					hasilUpload2.transferTo(tujuan2);
+					if (a.getId() == null || a.getId().isEmpty()) {
+						as.save(a);
+					} else {
+						as.update(a);
+					}
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
+				
 		
-		File tujuan1 = new File(lokasiUpload + File.separator +
-				tanggal + "-" + hasilUpload1.getOriginalFilename());
-		File tujuan2 = new File(lokasiUpload + File.separator +
-				tanggal + "-" + hasilUpload2.getOriginalFilename());
+		
+//		File tujuan1 = new File(lokasiUpload + File.separator +
+//				tanggal + "-" + hasilUpload.getOriginalFilename());
+//		File tujuan2 = new File(lokasiUpload + File.separator +
+//				tanggal + "-" + hasilUpload2.getOriginalFilename());
 	
-		try {
-			hasilUpload1.transferTo(tujuan1);
-			hasilUpload2.transferTo(tujuan2);
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		
 		return "redirect:/artikel/";
 	}
 
 	private File tujuanUpload(HttpSession session) {
 		String lokasiFullPath = session.getServletContext().
-				getRealPath(folderTujuan);
+				getRealPath(FOLDER_TUJUAN);
 		LOGGER.debug("Lokasi Full Path : [{}]", lokasiFullPath);
 		
 		File hasil = new File(lokasiFullPath);

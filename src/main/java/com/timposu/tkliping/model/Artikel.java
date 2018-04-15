@@ -1,5 +1,6 @@
 package com.timposu.tkliping.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,6 +29,8 @@ public class Artikel {
 	@GeneratedValue(generator = "uuid2")
 	@GenericGenerator(name = "uuid2", strategy = "uuid2")
 	private String id;
+	
+	private List<MultipartFile> files = new ArrayList<MultipartFile>();
 	
 	@NotNull
 	@NotEmpty
@@ -62,13 +66,15 @@ public class Artikel {
 	private Rubrik rubrik;
 	
 	@Column(nullable = true)
-	private String file1;
-	
-	@Column(nullable = true)
-	private String file2;
-	
-	@Column(nullable = true)
 	private String ket;
+
+	public List<MultipartFile> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<MultipartFile> files) {
+		this.files = files;
+	}
 
 	public String getKet() {
 		return ket;
@@ -76,21 +82,6 @@ public class Artikel {
 
 	public void setKet(String ket) {
 		this.ket = ket;
-	}
-
-	public String getFile1() {
-		return file1;
-	}
-
-	public void setFile1(String file1) {
-		this.file1 = file1;
-	}
-	public String getFile2() {
-		return file2;
-	}
-
-	public void setFile2(String file2) {
-		this.file2 = file2;
 	}
 
 	public Rubrik getRubrik() {
