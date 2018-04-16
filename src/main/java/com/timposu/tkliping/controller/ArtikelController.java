@@ -46,7 +46,7 @@ public class ArtikelController {
 	private static final Logger LOGGER = LoggerFactory.
 			getLogger(ArtikelController.class);
 	
-	// Konventer String ke Date
+	//	Konventer String ke Date
 	@InitBinder
 	public void initConventer(WebDataBinder binder) {
 		binder.registerCustomEditor(Artikel.class, new ArtikelProperty(as));
@@ -94,39 +94,37 @@ public class ArtikelController {
 		
 		String tanggal = new SimpleDateFormat("yyyy-MM-dd").format(a.getTanggal());
 		
-//		a.setFile1(FOLDER_TUJUAN + File.separator + 
-//				tanggal + "-" +hasilUpload.getOriginalFilename());
+//		a.setFile(FOLDER_TUJUAN + File.separator + 
+//				tanggal + "-" +files.getOriginalFilename());
 //		a.setFile2(folderTujuan + File.separator + 
 //				tanggal + "-" +hasilUpload2.getOriginalFilename());
 //		
 		
-		List<MultipartFile> listFiles = a.getFiles();
-		List<String> filesNames = new ArrayList<String>();
-		
-		if (listFiles != null && listFiles.size() > 0) {
-			for (MultipartFile multipartFile : listFiles) {
-				String fileName = files.getOriginalFilename();
-				filesNames.add(fileName);
-				
-				File tujuan = new File(lokasiUpload + File.separator +
-						tanggal + "-" + files.getOriginalFilename());
-				try {
-					files.transferTo(tujuan);
-//					hasilUpload2.transferTo(tujuan2);
-					if (a.getId() == null || a.getId().isEmpty()) {
-						as.save(a);
-					} else {
-						as.update(a);
-					}
-				} catch (IllegalStateException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
+			
+//		if (listFiles != null && listFiles.size() > 0) {
+//			for (MultipartFile multipartFile : listFiles) {
+//				String fileName = files.getOriginalFilename();
+//				filesNames.add(fileName);
+//				
+//				File tujuan = new File(lokasiUpload + File.separator +
+//						tanggal + "-" + files.getOriginalFilename());
+//				try {
+//					files.transferTo(tujuan);
+////					hasilUpload2.transferTo(tujuan2);
+//					if (a.getId() == null || a.getId().isEmpty()) {
+//						as.save(a);
+//					} else {
+//						as.update(a);
+//					}
+//				} catch (IllegalStateException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//		}
 				
 		
 		

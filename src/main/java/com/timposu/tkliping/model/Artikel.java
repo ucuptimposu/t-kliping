@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "artikel")
@@ -29,8 +29,6 @@ public class Artikel {
 	@GeneratedValue(generator = "uuid2")
 	@GenericGenerator(name = "uuid2", strategy = "uuid2")
 	private String id;
-	
-	private List<MultipartFile> files = new ArrayList<MultipartFile>();
 	
 	@NotNull
 	@NotEmpty
@@ -67,14 +65,13 @@ public class Artikel {
 	
 	@Column(nullable = true)
 	private String ket;
-
-	public List<MultipartFile> getFiles() {
-		return files;
-	}
-
-	public void setFiles(List<MultipartFile> files) {
-		this.files = files;
-	}
+	
+	@OneToMany(
+			cascade = CascadeType.ALL,
+			orphanRemoval = true,
+			mappedBy = "artikel"
+			)
+	private List<Files> files = new ArrayList<>();
 
 	public String getKet() {
 		return ket;
