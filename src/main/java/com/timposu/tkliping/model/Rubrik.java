@@ -32,8 +32,7 @@ public class Rubrik {
 	@OneToMany(
 			cascade = CascadeType.ALL,
 			orphanRemoval = true,
-			mappedBy = "rubrik"
-			)
+			mappedBy = "rubrik")
 	private List<Artikel> listArtikel = new ArrayList<>();
 	
 	public List<Artikel> getListArtikel() {

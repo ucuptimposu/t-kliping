@@ -25,10 +25,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.timposu.tkliping.model.Artikel;
+import com.timposu.tkliping.model.Files;
 import com.timposu.tkliping.property.ArtikelProperty;
 import com.timposu.tkliping.service.ArtikelService;
+import com.timposu.tkliping.service.FilesService;
 import com.timposu.tkliping.service.RubrikService;
 
 @Controller
@@ -40,6 +43,9 @@ public class ArtikelController {
 	
 	@Autowired
 	private RubrikService rs;
+	
+//	@Autowired
+//	private FilesService fs;
 	
 	private final String FOLDER_TUJUAN = "/uploads";
 	
@@ -80,19 +86,52 @@ public class ArtikelController {
 	@PostMapping("/form")
 	public String prosesForm(Model m, @Valid @ModelAttribute Artikel a,
 			BindingResult result, HttpSession session, 
-			@RequestParam("files") MultipartFile files) {
+			@RequestParam("foto") MultipartFile files) {
 		
 		if (result.hasErrors()) { 
 			m.addAttribute("daftarRubrik", rs.list());
 			return "artikel/form";
-		}
-		
+		}			
+		System.out.println("tes");
 		String lokasiUpload = tujuanUpload(session).getAbsolutePath();
 		
-		LOGGER.debug("Nama File : [{}]", files.getOriginalFilename());
-		LOGGER.debug("Ukuran File : [{}]", files.getSize());
-		
 		String tanggal = new SimpleDateFormat("yyyy-MM-dd").format(a.getTanggal());
+		
+		a.setFiles(FOLDER_TUJUAN + File.separator + 
+					tanggal + "-" + files.getOriginalFilename());
+		
+		File tujuan = new File(lokasiUpload + File.separator +
+				tanggal + "-" + files.getOriginalFilename());
+		
+		try {
+			files.transferTo(tujuan);;
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}		
+		
+		if (a.getId() == null || a.getId().isEmpty()) {
+			as.save(a);
+		} else {
+			as.update(a);
+		}
+		
+//		Files f = new Files();
+		
+//		for (CommonsMultipartFile file : files) {
+//			String fileName = file.getName();
+//			f.setNamaFile(FOLDER_TUJUAN + File.separator + 
+//					tanggal + "-" + fileName);
+//			f.setArtikel(a);
+//			
+//			File tujuan = new File(lokasiUpload + File.separator +
+//					tanggal + "-" + fileName);
+//			try {
+//				file.transferTo(tujuan);
+//			} catch (IllegalStateException | IOException e) {
+//				e.printStackTrace();
+//			}			
+//			fs.save(f);
+//		}
 		
 //		a.setFile(FOLDER_TUJUAN + File.separator + 
 //				tanggal + "-" +files.getOriginalFilename());
@@ -133,7 +172,6 @@ public class ArtikelController {
 //		File tujuan2 = new File(lokasiUpload + File.separator +
 //				tanggal + "-" + hasilUpload2.getOriginalFilename());
 	
-		
 		
 		return "redirect:/artikel/";
 	}
