@@ -22,6 +22,11 @@ public class FilesServiceImpl implements FilesService {
 	public void save(Files files) {
 		fd.save(files);
 	}
+	
+	@Override
+	public void update(Files files) {
+		fd.update(files);
+	}
 
 	@Override
 	public List<Files> list() {

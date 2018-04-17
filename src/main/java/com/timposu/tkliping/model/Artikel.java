@@ -66,24 +66,24 @@ public class Artikel {
 	@Column(nullable = true)
 	private String ket;
 	
-	@Column(nullable = true)
+	/*@Column(nullable = true)
 	private String files;
+	*/
 	
 	
-	
-//	@OneToMany(
-//			cascade = CascadeType.ALL,
-//			orphanRemoval = true,
-//			mappedBy = "artikel")
-//	private List<Files> files = new ArrayList<>();
+	@OneToMany(
+			cascade = CascadeType.ALL,
+			orphanRemoval = true,
+			mappedBy = "artikel")
+	private List<Files> files = new ArrayList<>();
 
-	public String getFiles() {
+	/*public String getFiles() {
 		return files;
 	}
 
 	public void setFiles(String files) {
 		this.files = files;
-	}
+	}*/
 
 	public String getKet() {
 		return ket;
@@ -101,13 +101,13 @@ public class Artikel {
 		this.rubrik = rubrik;
 	}
 
-//	public List<Files> getFiles() {
-//		return files;
-//	}
-//
-//	public void setFiles(List<Files> files) {
-//		this.files = files;
-//	}
+	public List<Files> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<Files> files) {
+		this.files = files;
+	}
 
 	public String getId() {
 		return id;

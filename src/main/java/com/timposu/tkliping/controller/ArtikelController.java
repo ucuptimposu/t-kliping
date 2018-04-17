@@ -44,10 +44,10 @@ public class ArtikelController {
 	@Autowired
 	private RubrikService rs;
 	
-//	@Autowired
-//	private FilesService fs;
+	@Autowired
+	private FilesService fs;
 	
-	private final String FOLDER_TUJUAN = "/uploads";
+	private final String FOLDER_TUJUAN = File.separator + "uploads";
 	
 	private static final Logger LOGGER = LoggerFactory.
 			getLogger(ArtikelController.class);
@@ -86,52 +86,55 @@ public class ArtikelController {
 	@PostMapping("/form")
 	public String prosesForm(Model m, @Valid @ModelAttribute Artikel a,
 			BindingResult result, HttpSession session, 
-			@RequestParam("foto") MultipartFile files) {
+			@RequestParam("artikel") MultipartFile[] files) {
 		
 		if (result.hasErrors()) { 
 			m.addAttribute("daftarRubrik", rs.list());
 			return "artikel/form";
 		}			
-		System.out.println("tes");
+		System.out.println("Jumlah :" + files.length);
 		String lokasiUpload = tujuanUpload(session).getAbsolutePath();
 		
 		String tanggal = new SimpleDateFormat("yyyy-MM-dd").format(a.getTanggal());
 		
-		a.setFiles(FOLDER_TUJUAN + File.separator + 
-					tanggal + "-" + files.getOriginalFilename());
+//		a.setFiles(FOLDER_TUJUAN + File.separator + 
+//					tanggal + "-" + files.getOriginalFilename());
 		
-		File tujuan = new File(lokasiUpload + File.separator +
-				tanggal + "-" + files.getOriginalFilename());
-		
-		try {
-			files.transferTo(tujuan);;
-		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
-		}		
-		
+//		File tujuan = new File(lokasiUpload + File.separator +
+//				tanggal + "-" + files.getOriginalFilename());
+//		
+//		try {
+//			files.transferTo(tujuan);;
+//		} catch (IllegalStateException | IOException e) {
+//			e.printStackTrace();
+//		}		
+//		
 		if (a.getId() == null || a.getId().isEmpty()) {
 			as.save(a);
 		} else {
 			as.update(a);
 		}
 		
-//		Files f = new Files();
+		Files f = new Files();
+		int aa = 1;
+		for (MultipartFile file : files) {
+			String fileName = file.getOriginalFilename();
+			f.setNamaFile(FOLDER_TUJUAN + File.separator + 
+					tanggal + "-" + fileName);
+			f.setArtikel(a);
+			
+			File tujuan = new File(lokasiUpload + File.separator +
+					tanggal + "-" + fileName);
+			try {
+				file.transferTo(tujuan);
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+			fs.save(f);
+			System.out.println("eksekusi : " + aa);
+			aa++;
+		}
 		
-//		for (CommonsMultipartFile file : files) {
-//			String fileName = file.getName();
-//			f.setNamaFile(FOLDER_TUJUAN + File.separator + 
-//					tanggal + "-" + fileName);
-//			f.setArtikel(a);
-//			
-//			File tujuan = new File(lokasiUpload + File.separator +
-//					tanggal + "-" + fileName);
-//			try {
-//				file.transferTo(tujuan);
-//			} catch (IllegalStateException | IOException e) {
-//				e.printStackTrace();
-//			}			
-//			fs.save(f);
-//		}
 		
 //		a.setFile(FOLDER_TUJUAN + File.separator + 
 //				tanggal + "-" +files.getOriginalFilename());

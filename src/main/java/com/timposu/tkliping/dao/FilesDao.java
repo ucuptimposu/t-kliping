@@ -8,6 +8,8 @@ public interface FilesDao {
 	
 	public void save(Files files);
 	
+	public void update(Files files);
+	
 	public List<Files> list();
 	
 	public Files getFiles(String id);

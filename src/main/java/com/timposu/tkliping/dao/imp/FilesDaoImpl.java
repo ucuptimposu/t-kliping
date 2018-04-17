@@ -17,7 +17,12 @@ public class FilesDaoImpl implements FilesDao {
 
 	@Override
 	public void save(Files files) {
-		session.getCurrentSession().saveOrUpdate(files);		
+		session.getCurrentSession().save(files);		
+	}
+	
+	@Override
+	public void update(Files files) {
+		session.getCurrentSession().update(files);		
 	}
 
 	@Override
