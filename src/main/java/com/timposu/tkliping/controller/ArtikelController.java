@@ -3,9 +3,7 @@ package com.timposu.tkliping.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -25,7 +23,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.timposu.tkliping.model.Artikel;
 import com.timposu.tkliping.model.Files;
@@ -92,23 +89,11 @@ public class ArtikelController {
 			m.addAttribute("daftarRubrik", rs.list());
 			return "artikel/form";
 		}			
-		System.out.println("Jumlah :" + files.length);
+		
 		String lokasiUpload = tujuanUpload(session).getAbsolutePath();
 		
 		String tanggal = new SimpleDateFormat("yyyy-MM-dd").format(a.getTanggal());
-		
-//		a.setFiles(FOLDER_TUJUAN + File.separator + 
-//					tanggal + "-" + files.getOriginalFilename());
-		
-//		File tujuan = new File(lokasiUpload + File.separator +
-//				tanggal + "-" + files.getOriginalFilename());
-//		
-//		try {
-//			files.transferTo(tujuan);;
-//		} catch (IllegalStateException | IOException e) {
-//			e.printStackTrace();
-//		}		
-//		
+	
 		if (a.getId() == null || a.getId().isEmpty()) {
 			as.save(a);
 		} else {
@@ -116,7 +101,7 @@ public class ArtikelController {
 		}
 		
 		Files f = new Files();
-		int aa = 1;
+		
 		for (MultipartFile file : files) {
 			String fileName = file.getOriginalFilename();
 			f.setNamaFile(FOLDER_TUJUAN + File.separator + 
@@ -131,50 +116,7 @@ public class ArtikelController {
 				e.printStackTrace();
 			}
 			fs.save(f);
-			System.out.println("eksekusi : " + aa);
-			aa++;
-		}
-		
-		
-//		a.setFile(FOLDER_TUJUAN + File.separator + 
-//				tanggal + "-" +files.getOriginalFilename());
-//		a.setFile2(folderTujuan + File.separator + 
-//				tanggal + "-" +hasilUpload2.getOriginalFilename());
-//		
-		
-			
-//		if (listFiles != null && listFiles.size() > 0) {
-//			for (MultipartFile multipartFile : listFiles) {
-//				String fileName = files.getOriginalFilename();
-//				filesNames.add(fileName);
-//				
-//				File tujuan = new File(lokasiUpload + File.separator +
-//						tanggal + "-" + files.getOriginalFilename());
-//				try {
-//					files.transferTo(tujuan);
-////					hasilUpload2.transferTo(tujuan2);
-//					if (a.getId() == null || a.getId().isEmpty()) {
-//						as.save(a);
-//					} else {
-//						as.update(a);
-//					}
-//				} catch (IllegalStateException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-				
-		
-		
-//		File tujuan1 = new File(lokasiUpload + File.separator +
-//				tanggal + "-" + hasilUpload.getOriginalFilename());
-//		File tujuan2 = new File(lokasiUpload + File.separator +
-//				tanggal + "-" + hasilUpload2.getOriginalFilename());
-	
+		}				
 		
 		return "redirect:/artikel/";
 	}
