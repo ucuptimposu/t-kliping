@@ -65,25 +65,18 @@ public class ArtikelController {
 	}
 	
 	@GetMapping("/form")
-	public String formArtikel(@RequestParam(value = "id", 
-			required = false) String id, Model m) {
+	public String formArtikel(Model m) {
 		
 		m.addAttribute("artikel", new Artikel());
 		m.addAttribute("daftarRubrik", rs.list());
 		
-		if (id != null) {
-			Artikel a = as.getArtikel(id);
-			if (a != null) {
-				m.addAttribute("artikel", a);
-			}
-		}
 		return "artikel/form";
 	}
 	
 	@PostMapping("/form")
 	public String prosesForm(Model m, @Valid @ModelAttribute Artikel a,
 			BindingResult result, HttpSession session, 
-			@RequestParam("artikel") MultipartFile[] files) {
+			@RequestParam("file-artikel") MultipartFile[] files) {
 		
 		if (result.hasErrors()) { 
 			m.addAttribute("daftarRubrik", rs.list());
@@ -91,14 +84,9 @@ public class ArtikelController {
 		}			
 		
 		String lokasiUpload = tujuanUpload(session).getAbsolutePath();
-		
 		String tanggal = new SimpleDateFormat("yyyy-MM-dd").format(a.getTanggal());
 	
-		if (a.getId() == null || a.getId().isEmpty()) {
-			as.save(a);
-		} else {
-			as.update(a);
-		}
+		as.save(a);
 		
 		Files f = new Files();
 		
@@ -118,6 +106,22 @@ public class ArtikelController {
 			fs.save(f);
 		}				
 		
+		return "redirect:/artikel/";
+	}
+	
+	@GetMapping("/edit")
+	public String formEditArtikel(@RequestParam(value = "id", required = true) String id,
+			Model m) {
+		
+		m.addAttribute("artikel", as.getArtikel(id));
+		m.addAttribute("daftarRubrik", rs.list());
+		
+		return "artikel/edit";
+	}
+	
+	@GetMapping("/hapus")
+	public String hapusArtikel(@RequestParam(value = "id", required = true) String id) {
+		as.delete(id);
 		return "redirect:/artikel/";
 	}
 

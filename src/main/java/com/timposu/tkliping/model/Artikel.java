@@ -65,25 +65,12 @@ public class Artikel {
 	
 	@Column(nullable = true)
 	private String ket;
-	
-	/*@Column(nullable = true)
-	private String files;
-	*/
-	
-	
+			
 	@OneToMany(
 			cascade = CascadeType.ALL,
 			orphanRemoval = true,
 			mappedBy = "artikel")
 	private List<Files> files = new ArrayList<>();
-
-	/*public String getFiles() {
-		return files;
-	}
-
-	public void setFiles(String files) {
-		this.files = files;
-	}*/
 
 	public String getKet() {
 		return ket;

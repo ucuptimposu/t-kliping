@@ -55,7 +55,7 @@ public class RubrikController {
 	}
 	
 	@GetMapping("/hapus")
-	public String hapusRubrik(@RequestParam(value = "id") Integer id) {
+	public String hapusRubrik(@RequestParam(value = "id", required = true) Integer id) {
 		rs.delete(id);
 		return "redirect:/rubrik/";
 	}

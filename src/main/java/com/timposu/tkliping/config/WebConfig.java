@@ -27,8 +27,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/static/**", "/uploads/**")
-			.addResourceLocations("/static/", "/uploads/");
+		registry.addResourceHandler("/static/**", "/src/**")
+			.addResourceLocations("/static/", "/src/");
 	}
 	
 	@Bean

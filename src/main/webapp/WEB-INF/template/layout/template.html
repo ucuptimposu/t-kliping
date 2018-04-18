@@ -8,10 +8,12 @@
 </head>
 <body>
 	<div th:substituteby="layout/navbar :: navbar"></div>
-	<div class="container">
+	<div style="padding-left:80px">
+			
 		<section layout:fragment="content">
 			<p>Isi Konten disini</p>
 		</section>
+		
 	</div>
 	<div th:substituteby="layout/footer :: footer"></div>
 </body>

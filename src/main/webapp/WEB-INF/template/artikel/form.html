@@ -64,15 +64,10 @@
 					<td><span th:if="${#fields.hasErrors('ket')}"	th:errors="*{ket}" class="error">Error</span></td>
 				</tr>
 				<tr>
-					<td>File 1</td>
-					<td><input type="file" name="artikel" multiple="multiple"/></td>
+					<td>File</td>
+					<td><input type="file" name="file-artikel" multiple="multiple"/></td>
 					<td></td>
 				</tr>
-				<!-- <tr>
-					<td>File 2</td>
-					<td><input type="file" name="file2" /></td>
-					<td></td>
-				</tr> -->
 				<tr>
 					<td><input type="hidden" th:field="*{id}" /></td>
 					<td><input type="submit" value="Simpan"> &nbsp; 

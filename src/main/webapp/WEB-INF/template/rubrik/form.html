@@ -10,7 +10,10 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h1>Form Rubrik</h1>
+		<div id="asf-box">
+             <h1>Form Rubrik</h1>
+         </div>
+		
 		<hr />
 		<form action="#" th:action="@{/rubrik/form}"	th:object="${rubrik}" method="post">
 			<table>

@@ -25,7 +25,7 @@
 					<th>Penulis</th>
 					<th>Rubrik</th>
 					<th>Tags</th>
-					<th colspan="2"></th>
+					<th colspan="2">Action</th>
 				</tr>
 				<tr th:each="a, index : ${daftarArtikel}">
 					<td th:text="${index.count}" />
@@ -36,12 +36,8 @@
 					<td th:text="${a.namaPenulis}" />
 					<td th:text="${a.rubrik.namaRubrik}" />
 					<td th:text="${a.tags}" />
-					<!-- <td><a th:href="@{${a.file}}" target="_blank">
-						<img th:src="@{/static/img/document.png}" alt="Lihat Kliping.."  height="20" />
-						</a>
-					</td> -->
-					<td><a th:href="@{/rubrik/form(id=${a.id})}">edit</a></td>
-	                <td><a th:href="@{/rubrik/hapus(id=${a.id})}" onclick="return confirm('Anda yakin mau hapus data ini?');">hapus</a></td>
+					<td><a th:href="@{/artikel/edit(id=${a.id})}">edit</a></td>
+	                <td><a th:href="@{/artikel/hapus(id=${a.id})}" onclick="return confirm('Anda yakin mau hapus data ini?');">hapus</a></td>
 				</tr>
 			</table>
 		</div>
