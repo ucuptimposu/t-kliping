@@ -3,11 +3,13 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head th:include="header :: head">
 <body>
-	<div th:fragment="navbar" id="mySidenav" class="sidenav">
-		<a th:href="@{/}" id="home">Home</a>
-		<a th:href="@{/rubrik/}" id="rubrik">Rubrik</a>
-		<a th:href="@{/artikel/}" id="artikel">Artikel</a>
-		<a href="#" id="contact">Kontak</a>
+	<div th:fragment="navbar" id="cssmenu">
+		<ul>
+			<li><a th:href="@{/}" id="home">Home</a></li>
+			<li><a th:href="@{/rubrik/}" id="rubrik">Rubrik</a></li>
+			<li><a th:href="@{/artikel/}" id="artikel">Artikel</a></li>
+			<li><a href="#" id="contact">Kontak</a></li>
+		</ul>
 	</div>
 </body>
 </html>

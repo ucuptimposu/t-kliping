@@ -10,72 +10,69 @@
 </head>
 <body>
 	<div layout:fragment="content">
+		<div class="box">
 		<h1>Form Artikel</h1>
-		<hr />
+		</div>
+		
+		<div class="mydiv">
 		<form action="#" th:action="@{/artikel/form}"	th:object="${artikel}" method="post" enctype="multipart/form-data">
-			<table>
-				<tr>
-					<td>Nama Media</td>
-					<td><input type="text" th:field="*{namaMedia}"></td>
-					<td><span th:if="${#fields.hasErrors('namaMedia')}"	th:errors="*{namaMedia}" class="error">Error</span></td>
-				</tr>
-				<tr>
-					<td>Judul</td>
-					<td><input type="text" th:field="*{judul}"></td>
-					<td><span th:if="${#fields.hasErrors('judul')}"	th:errors="*{judul}" class="error">Error</span></td>
-				</tr>
-				<tr>
-					<td>Halaman</td>
-					<td><input type="text" th:field="*{halaman}"></td>
-					<td><span th:if="${#fields.hasErrors('halaman')}"	th:errors="*{halaman}" class="error">Error</span></td>
-				</tr>
-				<tr>
-					<td>Tanggal</td>
-					<td><input type="text" th:field="*{tanggal}" id="datepicker"></td>
-					<td><span th:if="${#fields.hasErrors('tanggal')}"	th:errors="*{tanggal}" class="error">Error</span></td>
-				</tr>
-				<tr>
-					<td>Penulis</td>
-					<td><input type="text" th:field="*{namaPenulis}"></td>
-					<td><span th:if="${#fields.hasErrors('namaPenulis')}"	th:errors="*{namaPenulis}" class="error">Error</span></td>
-				</tr>
-				<tr>
-					<td>Edisi</td>
-					<td><input type="text" th:field="*{edisi}"></td>
-					<td><span th:if="${#fields.hasErrors('edisi')}"	th:errors="*{edisi}" class="error">Error</span></td>
-				</tr>
-				<tr>
-					<td>Rubrik</td>
-					<td><select name="rubrik" th:field="*{rubrik.id}">
-						<option th:each="r : ${daftarRubrik}"
-								th:value="${r.id}" th:text="${r.namaRubrik}" />
-						</select>
-					</td>
-					<td><span th:if="${#fields.hasErrors('rubrik')}"	th:errors="*{rubrik}" class="error">Error</span></td>
-				</tr>
-				<tr>
-					<td>Tags</td>
-					<td><input type="text" th:field="*{tags}"></td>
-					<td><span th:if="${#fields.hasErrors('tags')}"	th:errors="*{tags}" class="error">Error</span></td>
-				</tr>
-				<tr>
-					<td>Keterangan</td>
-					<td><textarea th:field="*{ket}" cols="30" rows="5"></textarea></td>
-					<td><span th:if="${#fields.hasErrors('ket')}"	th:errors="*{ket}" class="error">Error</span></td>
-				</tr>
-				<tr>
-					<td>File</td>
-					<td><input type="file" name="file-artikel" multiple="multiple"/></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><input type="hidden" th:field="*{id}" /></td>
-					<td><input type="submit" value="Simpan"> &nbsp; 
-						<input type="reset" value="Reset"></td>
-					<td></td>
-				</tr>
-			</table>
+			<label>Nama Media</label>
+			<input type="text" th:field="*{namaMedia}" class="myform">
+			<span th:if="${#fields.hasErrors('namaMedia')}"	th:errors="*{namaMedia}" class="error">Error</span><br />
+				
+			<label>Judul</label>
+			<input type="text" th:field="*{judul}" class="myform">
+			<span th:if="${#fields.hasErrors('judul')}"	th:errors="*{judul}" class="error">Error</span><br />
+				
+			<label>Halaman</label>
+			<input type="number" th:field="*{halaman}" class="myform">
+			<span th:if="${#fields.hasErrors('halaman')}"	th:errors="*{halaman}" class="error">Error</span><br />
+				
+				
+			<label>Tanggal</label>
+			<input type="text" th:field="*{tanggal}" id="datepicker" class="myform">
+			<span th:if="${#fields.hasErrors('tanggal')}"	th:errors="*{tanggal}" class="error">Error</span><br />
+				
+			<label>Penulis</label>
+			<input type="text" th:field="*{namaPenulis}" class="myform">
+			<span th:if="${#fields.hasErrors('namaPenulis')}"	th:errors="*{namaPenulis}" class="error">Error</span><br />
+				
+				
+			<label>Edisi</label>
+			<input type="text" th:field="*{edisi}" class="myform">
+			<span th:if="${#fields.hasErrors('edisi')}"	th:errors="*{edisi}" class="error">Error</span><br />
+		
+		
+			<label>Rubrik</label>
+			<select name="rubrik" th:field="*{rubrik.id}" class="myform">
+				<option th:each="r : ${daftarRubrik}"
+						th:value="${r.id}" th:text="${r.namaRubrik}" />
+				</select>
+			
+			<span th:if="${#fields.hasErrors('rubrik')}"	th:errors="*{rubrik}" class="error">Error</span><br />
+		
+		
+			<label>Tags</label>
+			<input type="text" th:field="*{tags}" class="myform">
+			<span th:if="${#fields.hasErrors('tags')}"	th:errors="*{tags}" class="error">Error</span><br />
+		
+		
+			<label>Keterangan</label>
+			<textarea th:field="*{ket}" cols="30" rows="5"  class="myform"></textarea>
+			<span th:if="${#fields.hasErrors('ket')}"	th:errors="*{ket}" class="error">Error</span><br />
+		
+		
+			<label>File</label>
+			<input type="file" name="file-artikel" multiple="multiple" class="myform-file"/><br /><br />
+			
+			<input type="hidden" th:field="*{id}" />
+			<input type="submit" value="Simpan" class="myform-submit"> &nbsp; 
+				<input type="reset" value="Reset" class="myform-reset">
+			
+		
+		
 		</form>
+		</div>
 	</div>
 
 </body>

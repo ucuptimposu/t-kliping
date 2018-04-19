@@ -9,13 +9,22 @@
 </head>
 <body>
 <div layout:fragment="content">
-	<h1>Daftar Artikel</h1>
-	<hr />
-	
-	<a th:href="@{/artikel/form}">Tambah</a>
-	
-	<div style="overflow-x:auto;">
-			<table>
+	<div class="box">
+		<h1>Daftar Artikel</h1>
+	</div>
+		
+	<div class="box">
+		<nav>
+			<ul>
+				<li><a th:href="@{/artikel/form}"><button class="button button-green">Tambah</button></a></li>
+			</ul>
+		</nav>
+		<form action="" method="post" class="search">
+						<input type="text" placeholder="Pencarian" class="search-form" />
+		</form>
+		
+		<div class="content">
+			<table id="artikel">
 				<tr>
 					<th>No</th>
 					<th>Nama Media</th>
@@ -41,6 +50,7 @@
 				</tr>
 			</table>
 		</div>
+	</div>
 </div>
 </body>
 </html>
