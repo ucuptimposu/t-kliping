@@ -11,7 +11,7 @@
 <body>
 	<div layout:fragment="content">
 		<div class="box">
-		<h1>Form Artikel</h1>
+		<h1>Edit Artikel</h1>
 		</div>
 		
 		<div class="mydiv">
@@ -61,10 +61,16 @@
 			<textarea th:field="*{ket}" cols="30" rows="5"  class="myform"></textarea>
 			<span th:if="${#fields.hasErrors('ket')}"	th:errors="*{ket}" class="error">Error</span><br />
 		
+			<label>Daftar File</label>
+			<ul>
+				<li><a href="">File 1</a> [hapus]</li>
+			</ul>
+			<br /><br />
 		
-			<label>File</label>
+			<label>Tambah File</label>
 			<input type="file" name="file-artikel" multiple="multiple" class="myform-file"/><br /><br />
 			
+			<input type="hidden" th:field="*{id}" />
 			<input type="submit" value="Simpan" class="myform-submit"> &nbsp; 
 			<input type="reset" value="Reset" class="myform-reset">
 		
