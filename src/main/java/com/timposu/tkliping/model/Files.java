@@ -22,6 +22,9 @@ public class Files {
 	@Column(name = "nama_file", nullable = true)
 	private String namaFile;
 	
+	@Column(name = "link_file", nullable = true)
+	private String linkFile;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_artikel", nullable = false)
 	private Artikel artikel;
@@ -40,6 +43,14 @@ public class Files {
 
 	public void setNamaFile(String namaFile) {
 		this.namaFile = namaFile;
+	}
+
+	public String getLinkFile() {
+		return linkFile;
+	}
+
+	public void setLinkFile(String linkFile) {
+		this.linkFile = linkFile;
 	}
 
 	public Artikel getArtikel() {

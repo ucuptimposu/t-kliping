@@ -92,7 +92,8 @@ public class ArtikelController {
 		
 		for (MultipartFile file : files) {
 			String fileName = file.getOriginalFilename();
-			f.setNamaFile(FOLDER_TUJUAN + File.separator + 
+			f.setNamaFile(tanggal + "-" + fileName);
+			f.setLinkFile(FOLDER_TUJUAN + File.separator + 
 					tanggal + "-" + fileName);
 			f.setArtikel(a);
 			
@@ -115,6 +116,7 @@ public class ArtikelController {
 		
 		m.addAttribute("artikel", as.getArtikel(id));
 		m.addAttribute("daftarRubrik", rs.list());
+		//m.addAttribute("files", fs.)
 		
 		return "artikel/edit";
 	}
