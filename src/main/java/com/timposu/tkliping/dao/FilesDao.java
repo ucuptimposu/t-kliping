@@ -15,5 +15,7 @@ public interface FilesDao {
 	public Files getFiles(String id);
 	
 	public void delete(String id);
+	
+	public List<Files> getFilesByIdArtikel(String idArtikel);
 
 }

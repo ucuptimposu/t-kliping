@@ -116,7 +116,7 @@ public class ArtikelController {
 		
 		m.addAttribute("artikel", as.getArtikel(id));
 		m.addAttribute("daftarRubrik", rs.list());
-		//m.addAttribute("files", fs.)
+		m.addAttribute("files", fs.getFilesByIdArtikel(id));
 		
 		return "artikel/edit";
 	}

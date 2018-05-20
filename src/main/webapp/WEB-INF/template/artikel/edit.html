@@ -62,8 +62,8 @@
 			<span th:if="${#fields.hasErrors('ket')}"	th:errors="*{ket}" class="error">Error</span><br />
 		
 			<label>Daftar File</label>
-			<ul>
-				<li><a th:href="@{artikel.linkFile}" th:text="${artikel.namaFile}">File 1</a> [hapus]</li>
+			<ul th:each="f : ${files}">
+				<li><a th:href="@{f.linkFile}" th:text="${f.namaFile}">File 1</a> [hapus]</li>
 			</ul>
 			<br /><br />
 		

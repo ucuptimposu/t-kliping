@@ -2,11 +2,15 @@ package com.timposu.tkliping.dao.imp;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.timposu.tkliping.dao.FilesDao;
+import com.timposu.tkliping.model.Artikel;
 import com.timposu.tkliping.model.Files;
 
 @Repository
@@ -45,6 +49,19 @@ public class FilesDaoImpl implements FilesDao {
 		Files files = session.getCurrentSession().
 				get(Files.class, id);
 		session.getCurrentSession().delete(files);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Files> getFilesByIdArtikel(String idArtikel) {
+		Artikel artikel = session.getCurrentSession().
+				get(Artikel.class, idArtikel);
+		
+		@SuppressWarnings("deprecation")
+		Criteria criteria = session.getCurrentSession()
+				.createCriteria(Files.class)
+				.add(Restrictions.le("artikel", artikel));
+		return criteria.list();
 	}
 
 }

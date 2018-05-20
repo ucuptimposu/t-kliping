@@ -42,5 +42,10 @@ public class FilesServiceImpl implements FilesService {
 	public void delete(String id) {
 		fd.delete(id);
 	}
+	
+	@Override
+	public List<Files> getFilesByIdArtikel(String idArtikel) {
+		return fd.getFilesByIdArtikel(idArtikel);
+	}
 
 }
