@@ -44,7 +44,7 @@ public class ArtikelController {
 	@Autowired
 	private FilesService fs;
 	
-	private final String FOLDER_TUJUAN = File.separator + "uploads";
+	private final String FOLDER_TUJUAN = "/uploads";
 	
 	private static final Logger LOGGER = LoggerFactory.
 			getLogger(ArtikelController.class);
@@ -93,11 +93,11 @@ public class ArtikelController {
 		for (MultipartFile file : files) {
 			String fileName = file.getOriginalFilename();
 			f.setNamaFile(tanggal + "-" + fileName);
-			f.setLinkFile(FOLDER_TUJUAN + File.separator + 
+			f.setLinkFile(FOLDER_TUJUAN + "/" + 
 					tanggal + "-" + fileName);
 			f.setArtikel(a);
 			
-			File tujuan = new File(lokasiUpload + File.separator +
+			File tujuan = new File(lokasiUpload + "/" +
 					tanggal + "-" + fileName);
 			try {
 				file.transferTo(tujuan);
