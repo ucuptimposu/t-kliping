@@ -63,7 +63,7 @@
 		
 			<label>Daftar File</label>
 			<ul th:each="f : ${files}">
-				<li><a th:href="${f.linkFile}" th:text="${f.namaFile}" target="_blank">File 1</a> [hapus]</li>
+				<li><a th:href="@{${f.linkFile}}" th:text="${f.namaFile}" target="_blank">File 1</a> <a href="/hpus" class="hapus"><img th:src="@{/src/img/delete.png}" width="16"/></a></li>
 			</ul>
 			<br /><br />
 		

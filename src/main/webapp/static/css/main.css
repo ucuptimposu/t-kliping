@@ -12,6 +12,10 @@ body {
   font-size: 12px; 
 }
 
+.icon {
+	width: 16px;
+}
+
 #cssmenu,
 #cssmenu ul,
 #cssmenu ul li,

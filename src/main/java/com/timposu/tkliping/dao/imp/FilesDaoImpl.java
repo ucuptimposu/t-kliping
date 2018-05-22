@@ -59,7 +59,7 @@ public class FilesDaoImpl implements FilesDao {
 		@SuppressWarnings("deprecation")
 		Criteria criteria = session.getCurrentSession()
 				.createCriteria(Files.class)
-				.add(Restrictions.le("artikel", artikel));
+				.add(Restrictions.eq("artikel", artikel));
 		return criteria.list();
 	}
 
