@@ -138,6 +138,13 @@ public class ArtikelController {
 			hasil.mkdirs();
 		}
 		return hasil;
-	}	
+	}
+	
+	@GetMapping("/file/hapus")
+	public String hapusFile(@RequestParam(value = "id", required = true) String id,
+			@RequestParam(value = "idartikel", required = true) String idArtikel) {
+		fs.delete(id);
+		return "redirect:/artikel/edit?id=" + idArtikel;
+	}
 	
 }

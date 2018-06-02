@@ -63,7 +63,7 @@
 		
 			<label>Daftar File</label>
 			<ul th:each="f : ${files}">
-				<li><a th:href="@{${f.linkFile}}" th:text="${f.namaFile}" target="_blank">File 1</a> <a href="/hpus" class="hapus"><img th:src="@{/src/img/delete.png}" width="16"/></a></li>
+				<li><a th:href="@{${f.linkFile}}" th:text="${f.namaFile}" target="_blank">File 1</a> <a th:href="@{/artikel/file/hapus(id=${f.id}, idartikel=*{id})}" onclick="return confirm('Anda yakin mau hapus data ini?');" class="hapus"><img th:src="@{/src/img/delete.png}" width="16"/></a></li>
 			</ul>
 			<br /><br />
 		
@@ -71,7 +71,7 @@
 			<input type="file" name="file-artikel" multiple="multiple" class="myform-file"/><br /><br />
 			
 			<input type="hidden" th:field="*{id}" />
-			<input type="submit" value="Simpan" class="myform-submit"> &nbsp; 
+			<input type="submit" value="Update" class="myform-submit"> &nbsp; 
 			<input type="reset" value="Reset" class="myform-reset">
 		
 		</form>
