@@ -104,9 +104,9 @@ public class ArtikelController {
 			} catch (IllegalStateException | IOException e) {
 				e.printStackTrace();
 			}
+			
 			fs.save(f);
-		}				
-		
+		}		
 		return "redirect:/artikel/";
 	}
 	
@@ -119,6 +119,46 @@ public class ArtikelController {
 		m.addAttribute("files", fs.getFilesByIdArtikel(id));
 		
 		return "artikel/edit";
+	}
+	
+
+	@PostMapping("/update")
+	public String updateArtikel(Model m, @Valid @ModelAttribute Artikel a,
+			BindingResult result, HttpSession session, 
+			@RequestParam("file-artikel") MultipartFile[] files) {
+		
+		if (result.hasErrors()) { 
+			m.addAttribute("daftarRubrik", rs.list());
+			return "artikel/edit?id=" + a.getId();
+		}			
+		
+		String lokasiUpload = tujuanUpload(session).getAbsolutePath();
+		String tanggal = new SimpleDateFormat("yyyy-MM-dd").format(a.getTanggal());
+	
+		as.update(a);
+		
+		Files f = new Files();
+		
+		for (MultipartFile file : files) {
+			if (!file.isEmpty()) {
+				String fileName = file.getOriginalFilename();
+				f.setNamaFile(tanggal + "-" + fileName);
+				f.setLinkFile(FOLDER_TUJUAN + "/" + 
+						tanggal + "-" + fileName);
+				f.setArtikel(a);
+				
+				File tujuan = new File(lokasiUpload + "/" +
+						tanggal + "-" + fileName);
+				try {
+					file.transferTo(tujuan);
+				} catch (IllegalStateException | IOException e) {
+					e.printStackTrace();
+				}		
+				
+				fs.save(f);
+			}			
+		}				
+		return "redirect:/artikel/";
 	}
 	
 	@GetMapping("/hapus")
