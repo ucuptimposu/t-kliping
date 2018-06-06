@@ -163,14 +163,22 @@ public class ArtikelController {
 	}
 	
 	@GetMapping("/hapus")
-	public String hapusArtikel(@RequestParam(value = "id", required = true) String id) {
-		as.delete(id);
+	public String hapusArtikel(@RequestParam(value = "id", required = true) String id,
+			HttpSession session) {
 		
 		List<Files> daftarFile = fs.getFilesByIdArtikel(id);
+		as.delete(id);
+		
 		for (Files file : daftarFile) {
-			fs.delete(file.getId());
-			File f = new File(file.getLinkFile());
-			f.delete();
+			
+			String lokasiFullPath = session.getServletContext().
+					getRealPath(FOLDER_TUJUAN);
+			File f = new File(lokasiFullPath + "/" + file.getNamaFile());
+			if (f.delete()) {
+				System.out.println("File telah dihapus");
+			} else {
+				System.out.println(f.getAbsolutePath());
+			}									
 		}
 		return "redirect:/artikel/";
 	}
@@ -190,11 +198,20 @@ public class ArtikelController {
 	
 	@GetMapping("/file/hapus")
 	public String hapusFile(@RequestParam(value = "id", required = true) String id,
-			@RequestParam(value = "idartikel", required = true) String idArtikel) {
+			@RequestParam(value = "idartikel", required = true) String idArtikel,
+			HttpSession session) {
 		Files file = fs.getFiles(id);
 		fs.delete(id);
-		File f = new File(file.getLinkFile());
-		f.delete();
+		
+		// hapus file
+		String lokasiFullPath = session.getServletContext().
+				getRealPath(FOLDER_TUJUAN);
+		File f = new File(lokasiFullPath + "/" + file.getNamaFile());
+		if (f.delete()) {
+			System.out.println("File telah dihapus");
+		} else {
+			System.out.println(f.getAbsolutePath());
+		}
 		return "redirect:/artikel/edit?id=" + idArtikel;
 	}
 	
