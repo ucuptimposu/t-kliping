@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -164,6 +165,13 @@ public class ArtikelController {
 	@GetMapping("/hapus")
 	public String hapusArtikel(@RequestParam(value = "id", required = true) String id) {
 		as.delete(id);
+		
+		List<Files> daftarFile = fs.getFilesByIdArtikel(id);
+		for (Files file : daftarFile) {
+			fs.delete(file.getId());
+			File f = new File(file.getLinkFile());
+			f.delete();
+		}
 		return "redirect:/artikel/";
 	}
 
@@ -183,7 +191,10 @@ public class ArtikelController {
 	@GetMapping("/file/hapus")
 	public String hapusFile(@RequestParam(value = "id", required = true) String id,
 			@RequestParam(value = "idartikel", required = true) String idArtikel) {
+		Files file = fs.getFiles(id);
 		fs.delete(id);
+		File f = new File(file.getLinkFile());
+		f.delete();
 		return "redirect:/artikel/edit?id=" + idArtikel;
 	}
 	
