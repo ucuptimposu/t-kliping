@@ -378,6 +378,18 @@ nav ul {
 	font-size: smaller;
 	color: #ef2929;
 }
+a.button {
+    background-color: #ef2929;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+a.button:hover {
+    background-color: #ce5c00;
+}
 
 footer {
 	font-size: smaller;
