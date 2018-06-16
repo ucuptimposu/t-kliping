@@ -8,6 +8,7 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.thymeleaf.dialect.springdata.SpringDataDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
@@ -19,44 +20,49 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.timposu.tkliping")
 public class WebConfig extends WebMvcConfigurerAdapter {
-	
+
 	@Bean
-    public MultipartResolver multipartResolver() {
-        return new StandardServletMultipartResolver();
-    }
-	
+	public MultipartResolver multipartResolver() {
+		return new StandardServletMultipartResolver();
+	}
+
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/static/**", "/src/**", "/uploads/**")
-			.addResourceLocations("/static/", "/src/", "/uploads/");
-		
+		registry.addResourceHandler("/static/**", "/src/**", "/uploads/**").addResourceLocations("/static/", "/src/",
+				"/uploads/");
+
 	}
-	
+
 	@Bean
 	public SpringResourceTemplateResolver templateResolver() {
-		SpringResourceTemplateResolver templateResolver = 
-				new SpringResourceTemplateResolver();
+		SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
 		templateResolver.setPrefix("/WEB-INF/template/");
 		templateResolver.setSuffix(".html");
 		templateResolver.setTemplateMode(TemplateMode.HTML);
 		templateResolver.setCacheable(false);
 		return templateResolver;
 	}
-	
+
 	@Bean
 	public SpringTemplateEngine templateEngine() {
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 		templateEngine.setTemplateResolver(templateResolver());
 		templateEngine.setEnableSpringELCompiler(true);
 		templateEngine.addDialect(new LayoutDialect());
+		templateEngine.addDialect(new SpringDataDialect());
 		return templateEngine;
 	}
-	
+
 	@Bean
 	public ThymeleafViewResolver viewResolver() {
-	    ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-	    viewResolver.setTemplateEngine(templateEngine());
-	    viewResolver.setOrder(1);
-	    return viewResolver;
+		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+		viewResolver.setTemplateEngine(templateEngine());
+		viewResolver.setOrder(1);
+		return viewResolver;
+	}
+
+	@Bean
+	public SpringDataDialect springDataDialect() {
+		return new SpringDataDialect();
 	}
 }
