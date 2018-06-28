@@ -8,7 +8,6 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.thymeleaf.dialect.springdata.SpringDataDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
@@ -49,7 +48,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		templateEngine.setTemplateResolver(templateResolver());
 		templateEngine.setEnableSpringELCompiler(true);
 		templateEngine.addDialect(new LayoutDialect());
-		templateEngine.addDialect(new SpringDataDialect());
 		return templateEngine;
 	}
 
@@ -60,9 +58,5 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		viewResolver.setOrder(1);
 		return viewResolver;
 	}
-
-	@Bean
-	public SpringDataDialect springDataDialect() {
-		return new SpringDataDialect();
-	}
+	
 }

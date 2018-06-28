@@ -15,4 +15,6 @@ public interface ArtikelDao {
 	public Artikel getArtikel(String id);
 	
 	public void delete(String id);
+	
+	public List<Artikel> listLimit(Integer pageNo);
 }

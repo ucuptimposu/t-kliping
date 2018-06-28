@@ -42,5 +42,10 @@ public class ArtikelServiceImpl implements ArtikelService {
 	public void delete(String id) {
 		ad.delete(id);
 	}
+	
+	@Override
+	public List<Artikel> listLimit(Integer pageNo) {
+		return ad.listLimit(pageNo);
+	}
 
 }

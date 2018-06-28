@@ -59,15 +59,17 @@ public class ArtikelController {
 	}
 	
 	@GetMapping("/")
-	public String listArtikel(Model model) {
-		model.addAttribute("daftarArtikel", as.list());
+	public String listArtikel(Model model, HttpSession session) {
+		session.setAttribute("pageNo", 1);
+		model.addAttribute("disablePrevious", "disable");
+		model.addAttribute("disableNext", "disable");
+		model.addAttribute("daftarArtikel", as.listLimit(1));
 		model.addAttribute("daftarRubrik", rs.list());
 		return "artikel/list";
 	}
 	
 	@GetMapping("/form")
 	public String formArtikel(Model m) {
-		
 		m.addAttribute("artikel", new Artikel());
 		m.addAttribute("daftarRubrik", rs.list());
 		
@@ -213,6 +215,47 @@ public class ArtikelController {
 			System.out.println(f.getAbsolutePath());
 		}
 		return "redirect:/artikel/edit?id=" + idArtikel;
+	}
+	
+	// Next Pagination
+	@GetMapping("next")
+	public String getNextPage(Model model, HttpSession session) {
+		Integer pageNo = (Integer) session.getAttribute("pageNo");
+		pageNo++;
+		session.setAttribute("pageNo", pageNo);
+		List<Artikel> daftarArtikel = as.listLimit(pageNo);
+		
+		if ((daftarArtikel.size() - 4) < 0) {
+			model.addAttribute("disableNext", "disable");
+//			session.setAttribute("pageNo", 1);
+//			daftarArtikel =  as.listLimit(1);
+		}	
+		
+		model.addAttribute("daftarArtikel", daftarArtikel);
+		model.addAttribute("daftarRubrik", rs.list());
+		return "artikel/list";
+	}
+	
+	// Previous Pagination
+	@GetMapping("previous")
+	public String getPreviousPage(Model model, HttpSession session) {
+		Integer pageNo = (Integer) session.getAttribute("pageNo");
+	
+		pageNo--;
+		if (pageNo <= 0) {
+			pageNo = 1;			
+		}
+		// disable previous link
+		if (pageNo == 1) {
+			model.addAttribute("disablePrevious", "disable");
+		}
+	
+		session.setAttribute("pageNo", pageNo);
+		List<Artikel> daftarArtikel = as.listLimit(pageNo);
+	
+		model.addAttribute("daftarArtikel", daftarArtikel);
+		model.addAttribute("daftarRubrik", rs.list());
+		return "artikel/list";
 	}
 	
 }

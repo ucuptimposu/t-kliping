@@ -26,7 +26,6 @@
 		<div class="content">
 			<table id="artikel">
 				<tr>
-					<th>No</th>
 					<th>Nama Media</th>
 					<th>Judul</th>
 					<th>Halaman</th>
@@ -37,7 +36,6 @@
 					<th colspan="2">Action</th>
 				</tr>
 				<tr th:each="a, index : ${daftarArtikel}">
-					<td th:text="${index.count}" />
 					<td th:text="${a.namaMedia}" />
 					<td th:text="${a.judul}" />
 					<td th:text="${a.halaman}" />
@@ -49,6 +47,21 @@
 	                <td><a th:href="@{/artikel/hapus(id=${a.id})}" onclick="return confirm('Anda yakin mau hapus data ini?');">hapus</a></td>
 				</tr>
 			</table>
+			<br />
+			<div align="center">
+			<div th:if="${disablePrevious == 'disable'}">
+				<a href="previous.do" class="disable-link">&lt;&lt; Sebelumnya</a>
+			</div>
+			<div th:unless="${disablePrevious == 'disable'}">
+				<a href="previous.do">&lt;&lt; Sebelumnya</a>
+			</div>
+			<div th:if="${disableNext == 'disable'}">
+				<a href="next.do" class="disable-link">Selanjutnya &gt;&gt;</a>
+			</div>
+			<div th:unless="${disableNext == 'disable'}">
+				<a href="next.do">Selanjutnya &gt;&gt;</a>
+			</div>			
+			</div>
 		</div>
 	</div>
 </div>
